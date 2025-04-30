@@ -57,43 +57,43 @@ function App() {
                 value={bill.toFixed(2)}
                 type="number"
                 id="bill"
+                name="bill"
                 placeholder="20"
               />
             </div>
           </section>
           <section className="mb-8">
-            <label
-              className="text-sm text-Grey-500 mb-3 block"
-              htmlFor="selectTip"
-            >
+            <label className="text-sm text-Grey-500 mb-3 block">
               Select Tip %
+              <div
+                className="grid grid-cols-2 xl:grid-cols-3 gap-4 text-White"
+                id="selectTip"
+              >
+                <button onClick={handleTipChange} className="btnPorcent">
+                  5%
+                </button>
+                <button onClick={handleTipChange} className="btnSelect">
+                  15%
+                </button>
+                <button onClick={handleTipChange} className="btnPorcent">
+                  10%
+                </button>
+                <button onClick={handleTipChange} className="btnPorcent">
+                  25%
+                </button>
+                <button onClick={handleTipChange} className="btnPorcent">
+                  50%
+                </button>
+                <input
+                  onChange={handleTipChange}
+                  className="input focus:inputFocus"
+                  type="text"
+                  placeholder="Custom"
+                  id="customTip"
+                  name="customTip"
+                />
+              </div>
             </label>
-            <div
-              className="grid grid-cols-2 xl:grid-cols-3 gap-4 text-White"
-              id="selectTip"
-            >
-              <button onClick={handleTipChange} className="btnPorcent">
-                5%
-              </button>
-              <button onClick={handleTipChange} className="btnSelect">
-                15%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent">
-                10%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent">
-                25%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent">
-                50%
-              </button>
-              <input
-                onChange={handleTipChange}
-                className="input focus:inputFocus"
-                type="text"
-                placeholder="Custom"
-              />
-            </div>
           </section>
           <section className="mb-8">
             <div className="flex justify-between">
