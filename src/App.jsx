@@ -20,6 +20,7 @@ function App() {
 
   const handleTipChange = (e) => {
     const value = e.target.textContent.slice(0, -1);
+    console.log(value);
     if (value !== tip) {
       const classBtn = e.target.classList;
       classBtn.remove("btnPorcent");
@@ -77,30 +78,16 @@ function App() {
                   <button
                     key={value}
                     onClick={handleTipChange}
-                    className="btnPorcent"
+                    className={value == tip ? "btnSelect" : "btnPorcent"}
                     id={value}
                   >
                     {value}%
                   </button>
                 );
               })}
-              {/* <button onClick={handleTipChange} className="btnPorcent" id="5">
-                5%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent" id="10">
-                10%
-              </button>
-              <button onClick={handleTipChange} className="btnSelect" id="15">
-                15%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent" id="25">
-                25%
-              </button>
-              <button onClick={handleTipChange} className="btnPorcent" id="50">
-                50%
-              </button> */}
+
               <input
-                // onChange={handleTipChange}
+                onChange={handleTipChange}
                 className="input focus:inputFocus"
                 type="text"
                 placeholder="Custom"
