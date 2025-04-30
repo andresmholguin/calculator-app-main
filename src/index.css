@@ -23,7 +23,7 @@
 }
 
 @utility btnPorcent {
-  @apply bg-Green-900 rounded-md p-1 hover:bg-Grey-200 hover:text-Green-900 h-[48px];
+  @apply bg-Green-900 rounded-md p-1 hover:text-Green-900 hover:bg-Grey-200 h-[48px];
 }
 
 @utility inputFocus {
@@ -39,5 +39,5 @@
 }
 
 @utility btnSelect {
-  @apply bg-Green-400 text-Green-900 rounded-md hover:bg-Grey-200;
+  @apply bg-Green-400 text-Green-900 rounded-md hover:bg-Grey-200 h-[48px];
 }

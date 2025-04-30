@@ -20,8 +20,13 @@ function App() {
 
   const handleTipChange = (e) => {
     const value = e.target.textContent.slice(0, -1);
-    console.log(value);
-    setTip(parseInt(value));
+    if (value !== tip) {
+      const classBtn = e.target.classList;
+      classBtn.remove("btnPorcent");
+      classBtn.add("btnSelect");
+
+      setTip(parseInt(value));
+    }
   };
 
   useEffect(() => {
@@ -54,7 +59,7 @@ function App() {
               <input
                 className="input h-[48px] w-full focus:inputFocus"
                 onChange={handleBillChange}
-                value={bill.toFixed(2)}
+                value={bill}
                 type="number"
                 id="bill"
                 name="bill"
@@ -65,35 +70,44 @@ function App() {
           <section className="mb-8">
             <label className="text-sm text-Grey-500 mb-3 block">
               Select Tip %
-              <div
-                className="grid grid-cols-2 xl:grid-cols-3 gap-4 text-White"
-                id="selectTip"
-              >
-                <button onClick={handleTipChange} className="btnPorcent">
-                  5%
-                </button>
-                <button onClick={handleTipChange} className="btnSelect">
-                  15%
-                </button>
-                <button onClick={handleTipChange} className="btnPorcent">
-                  10%
-                </button>
-                <button onClick={handleTipChange} className="btnPorcent">
-                  25%
-                </button>
-                <button onClick={handleTipChange} className="btnPorcent">
-                  50%
-                </button>
-                <input
-                  onChange={handleTipChange}
-                  className="input focus:inputFocus"
-                  type="text"
-                  placeholder="Custom"
-                  id="customTip"
-                  name="customTip"
-                />
-              </div>
             </label>
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-4 text-White">
+              {[5, 10, 15, 25, 50].map((value) => {
+                return (
+                  <button
+                    key={value}
+                    onClick={handleTipChange}
+                    className="btnPorcent"
+                    id={value}
+                  >
+                    {value}%
+                  </button>
+                );
+              })}
+              {/* <button onClick={handleTipChange} className="btnPorcent" id="5">
+                5%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent" id="10">
+                10%
+              </button>
+              <button onClick={handleTipChange} className="btnSelect" id="15">
+                15%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent" id="25">
+                25%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent" id="50">
+                50%
+              </button> */}
+              <input
+                // onChange={handleTipChange}
+                className="input focus:inputFocus"
+                type="text"
+                placeholder="Custom"
+                id="customTip"
+                name="customTip"
+              />
+            </div>
           </section>
           <section className="mb-8">
             <div className="flex justify-between">
