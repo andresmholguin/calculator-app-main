@@ -5,7 +5,8 @@
   --color-Green-900: hsl(183, 100%, 15%);
   --color-Grey-500: hsl(186, 14%, 43%);
   --color-Grey-400: hsl(172 14% 41%);
-  --color-Grey-200: hsl(185, 41%, 84%);
+  --color-Grey-300: hsl(185 41% 84%);
+  --color-Grey-200: hsl(173 61% 77%);
   --color-Grey-100: hsl(203 50% 97%);
   --color-Grey-50: hsl(189, 47%, 97%);
   --color-White: hsl(0, 100%, 100%);
@@ -19,4 +20,24 @@
   font-weight: 700;
   font-display: swap;
   src: url("./assets/font/SpaceMono-Bold.ttf") format("woff2");
+}
+
+@utility btnPorcent {
+  @apply bg-Green-900 rounded-md p-1 hover:bg-Grey-200 hover:text-Green-900 h-[48px];
+}
+
+@utility inputFocus {
+  @apply outline-none ring-2 ring-Green-400;
+}
+
+@utility inputError {
+  @apply outline-none ring-2 ring-red-400;
+}
+
+@utility input {
+  @apply text-right bg-Grey-100 rounded-md text-Green-900 pr-4;
+}
+
+@utility btnSelect {
+  @apply bg-Green-400 text-Green-900 rounded-md hover:bg-Grey-200;
 }
