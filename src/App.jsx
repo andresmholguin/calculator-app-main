@@ -3,7 +3,7 @@ import dollar from "./assets/images/icon-dollar.svg";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [bill, setBill] = useState(0.0);
+  const [bill, setBill] = useState(0);
   const [tip, setTip] = useState(15);
   const [people, setPeople] = useState(1);
   // const [error, setError] = useState(false);
@@ -13,12 +13,21 @@ function App() {
 
   const handleBillChange = (e) => {
     const value = e.target.value;
-    console.log(parseInt(value));
-    setBill(parseInt(value));
+    console.log(parseFloat(value).toFixed(2));
+    setBill(parseFloat(value).toFixed(2));
     console.log(bill);
   };
 
   const handleTipChange = (e) => {
+    if (e.target.id === "customTip") {
+      const value = e.target.value;
+      if (value > 0) {
+        setTip(value);
+      } else {
+        setTip(0);
+      }
+      return;
+    }
     const value = e.target.textContent.slice(0, -1);
     console.log(value);
     if (value !== tip) {
@@ -30,15 +39,26 @@ function App() {
     }
   };
 
+  const reset = () => {
+    setBill(0);
+    setTip(15);
+    setPeople(1);
+    setTipAmount(0);
+    setTotal(0);
+  };
+
   useEffect(() => {
     if (bill <= 0) {
       setBill(0);
     }
     const tipAmountValue = (bill * tip) / 100 / people;
-    setTipAmount(tipAmountValue.toFixed(2));
-
     const totalValue = (bill + tipAmountValue * people) / people;
-    setTotal(totalValue.toFixed(2));
+    if (tipAmountValue > 0) {
+      setTipAmount(tipAmountValue.toFixed(2));
+      setTotal(totalValue.toFixed(2));
+    } else {
+      setTipAmount(0);
+    }
   }, [bill, tip, people]);
 
   return (
@@ -58,7 +78,7 @@ function App() {
             <div className="flex items-center relative rounded-sm">
               <img className="absolute ml-4" src={dollar} alt="Icon dollar" />
               <input
-                className="input h-[48px] w-full focus:inputFocus"
+                className="input h-[48px] w-full focus:inputFocus active"
                 onChange={handleBillChange}
                 value={bill}
                 type="number"
@@ -140,7 +160,10 @@ function App() {
               $<span>{total}</span>
             </p>
           </div>
-          <button className="uppercase text-xl text-Green-900 rounded-md h-18 xl:h-10 w-full bg-Green-400">
+          <button
+            className="uppercase text-xl text-Green-900 rounded-md h-18 xl:h-10 w-full bg-Green-400 cursor-pointer"
+            onClick={reset}
+          >
             reset
           </button>
         </section>
