@@ -1,7 +1,40 @@
 import iconPerson from "./assets/images/icon-person.svg";
 import dollar from "./assets/images/icon-dollar.svg";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [bill, setBill] = useState(0.0);
+  const [tip, setTip] = useState(15);
+  const [people, setPeople] = useState(1);
+  // const [error, setError] = useState(false);
+  const [tipAmount, setTipAmount] = useState(0);
+  const [total, setTotal] = useState(0);
+  // const [customTip, setCustomTip] = useState(0);
+
+  const handleBillChange = (e) => {
+    const value = e.target.value;
+    console.log(parseInt(value));
+    setBill(parseInt(value));
+    console.log(bill);
+  };
+
+  const handleTipChange = (e) => {
+    const value = e.target.textContent.slice(0, -1);
+    console.log(value);
+    setTip(parseInt(value));
+  };
+
+  useEffect(() => {
+    if (bill <= 0) {
+      setBill(0);
+    }
+    const tipAmountValue = (bill * tip) / 100 / people;
+    setTipAmount(tipAmountValue.toFixed(2));
+
+    const totalValue = (bill + tipAmountValue * people) / people;
+    setTotal(totalValue.toFixed(2));
+  }, [bill, tip, people]);
+
   return (
     <>
       <header className=" h-30 flex justify-center items-center xl:mb-20">
@@ -20,7 +53,9 @@ function App() {
               <img className="absolute ml-4" src={dollar} alt="Icon dollar" />
               <input
                 className="input h-[48px] w-full focus:inputFocus"
-                type="text"
+                onChange={handleBillChange}
+                value={bill.toFixed(2)}
+                type="number"
                 id="bill"
                 placeholder="20"
               />
@@ -37,12 +72,23 @@ function App() {
               className="grid grid-cols-2 xl:grid-cols-3 gap-4 text-White"
               id="selectTip"
             >
-              <button className="btnPorcent">5%</button>
-              <button className="btnPorcent">10%</button>
-              <button className="btnSelect">15%</button>
-              <button className="btnPorcent">25%</button>
-              <button className="btnPorcent">50%</button>
+              <button onClick={handleTipChange} className="btnPorcent">
+                5%
+              </button>
+              <button onClick={handleTipChange} className="btnSelect">
+                15%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent">
+                10%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent">
+                25%
+              </button>
+              <button onClick={handleTipChange} className="btnPorcent">
+                50%
+              </button>
               <input
+                onChange={handleTipChange}
                 className="input focus:inputFocus"
                 type="text"
                 placeholder="Custom"
@@ -69,25 +115,28 @@ function App() {
                 className="input w-full h-[48px] focus:inputFocus "
                 type="text"
                 id="numPeople"
-                placeholder="1"
+                onChange={(e) => {
+                  setPeople(e.target.value);
+                }}
+                value={people}
               />
             </div>
           </section>
         </div>
         <section className="bg-Green-900 rounded-2xl h-[220px] xl:h-[420px] flex flex-col justify-between p-6 mb-8 xl:mb-0">
-          <div className="grid grid-cols-2 gap-7 xl:gap-13 xl:pt-7 mb-6">
+          <div className="grid grid-cols-3 gap-7 xl:gap-13 xl:pt-7 mb-6">
             <p className="text-sm text-White flex flex-col">
               Tip Amount <span className="text-xs text-gray-400">/ person</span>
             </p>
-            <p className="text-Green-400 text-3xl xl:text-5xl text-right">
-              $0.00
+            <p className="text-Green-400 col-span-2 text-3xl xl:text-5xl text-right">
+              $<span>{tipAmount}</span>
             </p>
 
             <p className="text-sm text-White flex flex-col">
               Total <span className="text-xs text-gray-400">/ person</span>
             </p>
-            <p className="text-Green-400 text-3xl xl:text-5xl text-right">
-              $0.00
+            <p className="text-Green-400 col-span-2 text-3xl xl:text-5xl text-right">
+              $<span>{total}</span>
             </p>
           </div>
           <button className="uppercase text-xl text-Green-900 rounded-md h-18 xl:h-10 w-full bg-Green-400">
