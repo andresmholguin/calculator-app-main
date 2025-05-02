@@ -3,7 +3,7 @@ import dollar from "./assets/images/icon-dollar.svg";
 import { useEffect, useState } from "react";
 
 function App() {
-  const [bill, setBill] = useState(0);
+  const [bill, setBill] = useState("");
   const [tip, setTip] = useState(15);
   const [people, setPeople] = useState(1);
   // const [error, setError] = useState(false);
@@ -13,14 +13,15 @@ function App() {
 
   const handleBillChange = (e) => {
     const value = e.target.value;
-    console.log(parseFloat(value).toFixed(2));
-    setBill(parseFloat(value).toFixed(2));
+
+    setBill(parseInt(value));
     console.log(bill);
   };
 
   const handleTipChange = (e) => {
     if (e.target.id === "customTip") {
       const value = e.target.value;
+
       if (value > 0) {
         setTip(value);
       } else {
@@ -29,7 +30,7 @@ function App() {
       return;
     }
     const value = e.target.textContent.slice(0, -1);
-    console.log(value);
+
     if (value !== tip) {
       const classBtn = e.target.classList;
       classBtn.remove("btnPorcent");
@@ -40,16 +41,16 @@ function App() {
   };
 
   const reset = () => {
-    setBill(0);
+    setBill("");
     setTip(15);
-    setPeople(1);
+    setPeople("null");
     setTipAmount(0);
     setTotal(0);
   };
 
   useEffect(() => {
     if (bill <= 0) {
-      setBill(0);
+      setBill("");
     }
     const tipAmountValue = (bill * tip) / 100 / people;
     const totalValue = (bill + tipAmountValue * people) / people;
